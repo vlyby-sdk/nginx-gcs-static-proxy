@@ -44,7 +44,7 @@ server {
 
 {{- if .FORCE_HTTPS }}
     if ( $real_scheme = "http" ) {
-        return 301 https://$host$request_uri;
+        return 200 https://$host$request_uri;
     }
 {{ end }}
 
@@ -81,8 +81,7 @@ server {
 {{ else }}
     location / {
         include "gcs.conf";
-         return 301 https://$host$request_uri;
-        
+       
         error_page 404 403 =404 {{ .ERROR_404 | default "/404.html" }};
 
         proxy_pass              https://gs/{{ .GCS_BUCKET }}{{ $path_prefix }}$uri;
