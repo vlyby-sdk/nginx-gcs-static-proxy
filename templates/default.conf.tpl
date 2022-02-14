@@ -82,11 +82,10 @@ server {
     location / {
         include "gcs.conf";
        
-        error_page 404 403 =404 {{ .ERROR_404 | default "/404.html" }};
+        error_page 404 =302 https://nginx-gcs-static-proxy-3acos3nvea-ey.a.run.app/uncategorized.html
 
         proxy_pass              https://gs/{{ .GCS_BUCKET }}{{ $path_prefix }}$uri;
-        
-        error_page 404 =302 https://nginx-gcs-static-proxy-3acos3nvea-ey.a.run.app/uncategorized.html
+      
     }
 {{ end }}
 }
