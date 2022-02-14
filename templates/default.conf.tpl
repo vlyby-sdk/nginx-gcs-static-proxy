@@ -82,7 +82,7 @@ server {
     location / {
         include "gcs.conf";
 
-        error_page 404 403 =404 {{ .ERROR_404 | default "/404.html" }};
+        error_page 404 403 =200 {{ .ERROR_404 | default "/404.html" }};
 
         proxy_pass              https://gs/{{ .GCS_BUCKET }}{{ $path_prefix }}$uri;
     }
